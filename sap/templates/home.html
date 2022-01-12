@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Helloo welcomeee</h1>
+    <form action="{% url 'logout' %}">
+        {% csrf_token %}
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Password</th>
+
+        {% for i in details %}
+            <tr>
+                <td>{{i.Name}}</td>
+                <td>{{i.Password}}</td>
+            </tr>
+        {% endfor %}
+
+        <input type="submit" value="logout">
+    </form>
+</body>
+</html>
