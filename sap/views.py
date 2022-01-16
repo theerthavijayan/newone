@@ -1,4 +1,4 @@
-from django.core.checks import messages
+
 from django.shortcuts import render, redirect
 # from .forms import SubscribeForm
 
@@ -37,20 +37,16 @@ def logout(request):
     return redirect('login')
 
 
-def subscribe(request):
-    if request.method == 'POST':
-        to =request.POST.get['email']
-        content =request.POST.get['content']
-        print(to,content)
-        send_mail('subject', 
-               content, settings.EMAIL_HOST_USER, [to], fail_silently=False)
-    else:
-        return render(
-            request, 'index.html',{
-                'title':'send mail' 
-            }
+def index(request):
 
-        )
+    if request.method == 'POST':
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+        email = request.POST.get('email')
+        send_mail(subject, message, settings.EMAIL_HOST_USER,
+                  [email], fail_silently=False)
+        return render(request, 'success.html', {'email': email})
+    return render(request, 'index.html')
     #     form = SubscribeForm(request.POST)
     #     if form.is_valid():
     #         subject = 'Code Band'
@@ -60,5 +56,5 @@ def subscribe(request):
     #           message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
     #         #messages.SUCCESS(request, 'Profile details updated.')
     #         return redirect('subscribe')
-    return render(request, 'index.html')
+    # return render(request, 'index.html')
     
